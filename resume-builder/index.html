@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResumeForge — 100+ Professional Templates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;700&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:wght@400;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #13131a;
+  --surface2: #1c1c26;
+  --border: #2a2a38;
+  --accent: #6366f1;
+  --accent2: #a78bfa;
+  --text: #f0f0f5;
+  --muted: #6b6b85;
+  --success: #22c55e;
+  --danger: #ef4444;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.6rem;
+  letter-spacing: 3px;
+  color: var(--accent2);
+}
+.logo span { color: var(--muted); font-size: 0.75rem; letter-spacing: 2px; font-family: 'DM Sans', sans-serif; font-weight: 300; margin-left: 8px; }
+
+.header-actions { display: flex; gap: 10px; align-items: center; }
+
+.btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+.btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+.btn-primary { background: var(--accent); color: white; }
+.btn-primary:hover { background: #4f46e5; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(99,102,241,0.3); }
+.btn-success { background: var(--success); color: white; }
+.btn-success:hover { background: #16a34a; transform: translateY(-1px); }
+
+/* LAYOUT */
+.app-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr 360px;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+/* LEFT PANEL - FORM */
+.form-panel {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  height: 100%;
+}
+
+.form-panel::-webkit-scrollbar { width: 4px; }
+.form-panel::-webkit-scrollbar-track { background: transparent; }
+.form-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.form-panel-header {
+  padding: 1.25rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 10;
+}
+.form-panel-header h2 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.form-panel-header p { font-size: 11px; color: var(--muted); }
+
+.form-body { padding: 1.25rem 1.5rem 4rem; }
+
+.section-label {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 1.5rem 0 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.field { margin-bottom: 0.6rem; }
+.field label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.field input, .field textarea, .field select {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.field input:focus, .field textarea:focus { border-color: var(--accent); }
+.field textarea { resize: vertical; min-height: 64px; line-height: 1.5; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.add-btn {
+  width: 100%;
+  padding: 7px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+  margin-top: 6px;
+}
+.add-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.entry-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.875rem;
+  margin-bottom: 8px;
+  background: var(--surface2);
+  position: relative;
+}
+.entry-card .rm { position: absolute; top: 8px; right: 8px; width: 22px; height: 22px; border: none; background: transparent; color: var(--muted); cursor: pointer; font-size: 14px; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+.entry-card .rm:hover { background: rgba(239,68,68,0.1); color: var(--danger); }
+
+.tag-wrap { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.tag { background: rgba(99,102,241,0.12); color: var(--accent2); border: 1px solid rgba(99,102,241,0.2); padding: 2px 8px 2px 10px; border-radius: 20px; font-size: 11px; display: flex; align-items: center; gap: 4px; }
+.tag button { background: none; border: none; cursor: pointer; color: inherit; font-size: 13px; line-height: 1; padding: 0; }
+
+.skill-row { display: flex; gap: 6px; }
+.skill-row input { flex: 1; }
+.skill-row button { padding: 8px 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; transition: all 0.2s; }
+.skill-row button:hover { border-color: var(--accent); color: var(--accent); }
+
+/* CENTER - PRESETS */
+.presets-panel {
+  background: var(--bg);
+  overflow-y: auto;
+  height: 100%;
+  padding: 1.5rem;
+}
+.presets-panel::-webkit-scrollbar { width: 4px; }
+.presets-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.presets-header { margin-bottom: 1.25rem; }
+.presets-header h2 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.presets-header p { font-size: 12px; color: var(--muted); }
+
+.category-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.cat-tab {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.cat-tab:hover { border-color: var(--accent); color: var(--text); }
+.cat-tab.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+.presets-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.preset-thumb {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--surface);
+  position: relative;
+}
+.preset-thumb:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.preset-thumb.active { border-color: var(--accent2); border-width: 2px; box-shadow: 0 0 0 3px rgba(167,139,250,0.15); }
+
+.thumb-preview {
+  height: 90px;
+  position: relative;
+  overflow: hidden;
+}
+.thumb-footer { padding: 8px 10px; }
+.thumb-name { font-size: 11px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.thumb-cat { font-size: 9px; color: var(--muted); margin-top: 1px; }
+
+/* RIGHT PANEL - PREVIEW */
+.preview-panel {
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.preview-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.preview-header h3 { font-size: 13px; font-weight: 500; }
+
+.preview-wrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.preview-wrap::-webkit-scrollbar { width: 4px; }
+.preview-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+#resumeCanvas {
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  display: block;
+}
+
+.preview-footer {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.dl-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 0.5px;
+}
+.dl-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(99,102,241,0.4); }
+
+.count-badge {
+  background: rgba(99,102,241,0.15);
+  color: var(--accent2);
+  border: 1px solid rgba(99,102,241,0.2);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div style="display:flex;align-items:center;gap:16px">
+    <div class="logo">ResumeForge <span>100+ TEMPLATES</span></div>
+  </div>
+  <div class="header-actions">
+    <span class="count-badge" id="totalCount">Loading...</span>
+    <button class="btn btn-ghost" onclick="clearForm()">Clear all</button>
+    <button class="btn btn-primary" onclick="downloadPDF()">⬇ Download PDF</button>
+  </div>
+</header>
+
+<div class="app-layout">
+
+  <!-- FORM PANEL -->
+  <div class="form-panel">
+    <div class="form-panel-header">
+      <h2>Your Information</h2>
+      <p>Fill in details — preview updates live</p>
+    </div>
+    <div class="form-body">
+
+      <div class="section-label">Personal</div>
+      <div class="field"><label>Full Name</label><input id="f_name" placeholder="Alex Johnson" oninput="render()"></div>
+      <div class="field"><label>Job Title</label><input id="f_title" placeholder="Senior Product Designer" oninput="render()"></div>
+      <div class="row2">
+        <div class="field"><label>Email</label><input id="f_email" placeholder="alex@email.com" oninput="render()"></div>
+        <div class="field"><label>Phone</label><input id="f_phone" placeholder="+1 555 000 0000" oninput="render()"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Location</label><input id="f_loc" placeholder="London, UK" oninput="render()"></div>
+        <div class="field"><label>LinkedIn / Website</label><input id="f_link" placeholder="linkedin.com/in/alex" oninput="render()"></div>
+      </div>
+      <div class="field"><label>Professional Summary</label><textarea id="f_summary" placeholder="2-3 sentences about your experience and key strengths..." oninput="render()"></textarea></div>
+
+      <div class="section-label">Experience</div>
+      <div id="expList"></div>
+      <button class="add-btn" onclick="addExp()">+ Add Experience</button>
+
+      <div class="section-label">Education</div>
+      <div id="eduList"></div>
+      <button class="add-btn" onclick="addEdu()">+ Add Education</button>
+
+      <div class="section-label">Skills</div>
+      <div class="skill-row">
+        <input id="skillIn" placeholder="e.g. Figma, Python, React..." onkeydown="if(event.key==='Enter'){addSkill();event.preventDefault()}">
+        <button onclick="addSkill()">Add</button>
+      </div>
+      <div class="tag-wrap" id="skillTags"></div>
+
+      <div class="section-label">Certifications</div>
+      <div class="skill-row">
+        <input id="certIn" placeholder="e.g. AWS Certified, PMP..." onkeydown="if(event.key==='Enter'){addCert();event.preventDefault()}">
+        <button onclick="addCert()">Add</button>
+      </div>
+      <div class="tag-wrap" id="certTags"></div>
+
+      <div class="section-label">Languages</div>
+      <div class="skill-row">
+        <input id="langIn" placeholder="e.g. English (Native)..." onkeydown="if(event.key==='Enter'){addLang();event.preventDefault()}">
+        <button onclick="addLang()">Add</button>
+      </div>
+      <div class="tag-wrap" id="langTags"></div>
+
+    </div>
+  </div>
+
+  <!-- PRESETS PANEL -->
+  <div class="presets-panel">
+    <div class="presets-header">
+      <h2>Choose Your Template</h2>
+      <p>All templates are ATS-friendly and interview-proven. Click to apply instantly.</p>
+    </div>
+    <div class="category-tabs" id="categoryTabs"></div>
+    <div class="presets-grid" id="presetsGrid"></div>
+  </div>
+
+  <!-- PREVIEW PANEL -->
+  <div class="preview-panel">
+    <div class="preview-header">
+      <h3>Live Preview</h3>
+      <span id="presetLabel" style="font-size:11px;color:var(--muted)">Minimal Classic</span>
+    </div>
+    <div class="preview-wrap">
+      <canvas id="resumeCanvas"></canvas>
+    </div>
+    <div class="preview-footer">
+      <button class="dl-btn" onclick="downloadPDF()">⬇ &nbsp;Download PDF</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── 100+ PRESETS ───────────────────────────────────────────────────────────
+const PRESETS = [
+  // ── CORPORATE & BUSINESS (20) ──
+  {id:0,  name:"Wall Street",    cat:"Corporate", bg:"#0A1628", accent:"#C9A84C", text:"#F0F4FF", sub:"#8899BB", bar:"#122040", font:"serif",   layout:"classic",  stripe:"#C9A84C"},
+  {id:1,  name:"Boardroom",      cat:"Corporate", bg:"#FFFFFF", accent:"#1B2A4A", text:"#1B2A4A", sub:"#5A6882", bar:"#F0F4FA", font:"serif",   layout:"classic",  stripe:"#1B2A4A"},
+  {id:2,  name:"Executive",      cat:"Corporate", bg:"#F8FAFF", accent:"#0D47A1", text:"#0A1929", sub:"#4472C4", bar:"#E3F2FD", font:"sans",    layout:"sidebar",  stripe:"#0D47A1"},
+  {id:3,  name:"Corporate Gray", cat:"Corporate", bg:"#FAFAFA", accent:"#37474F", text:"#212121", sub:"#78909C", bar:"#ECEFF1", font:"sans",    layout:"classic",  stripe:"#37474F"},
+  {id:4,  name:"Prestige",       cat:"Corporate", bg:"#FFFFFF", accent:"#1A237E", text:"#1A237E", sub:"#7986CB", bar:"#E8EAF6", font:"serif",   layout:"minimal",  stripe:"#1A237E"},
+  {id:5,  name:"McKinsey",       cat:"Corporate", bg:"#FEFEFE", accent:"#003366", text:"#1A1A1A", sub:"#668099", bar:"#F5F7FA", font:"sans",    layout:"classic",  stripe:"#003366"},
+  {id:6,  name:"Goldman",        cat:"Corporate", bg:"#FFFFFF", accent:"#6D001A", text:"#1A1A1A", sub:"#996677", bar:"#FFF5F7", font:"serif",   layout:"minimal",  stripe:"#6D001A"},
+  {id:7,  name:"Finance Pro",    cat:"Corporate", bg:"#F5F7FA", accent:"#0066CC", text:"#1A2B3C", sub:"#5588AA", bar:"#D6E8FF", font:"sans",    layout:"classic",  stripe:"#0066CC"},
+  {id:8,  name:"Consultant",     cat:"Corporate", bg:"#FFFFFF", accent:"#2E4057", text:"#1A1A2E", sub:"#6B7FA3", bar:"#EDF0F5", font:"sans",    layout:"sidebar",  stripe:"#2E4057"},
+  {id:9,  name:"Steel Blue",     cat:"Corporate", bg:"#F0F5FF", accent:"#1565C0", text:"#0D2137", sub:"#4472C4", bar:"#BBDEFB", font:"sans",    layout:"minimal",  stripe:"#1565C0"},
+  {id:10, name:"Charcoal",       cat:"Corporate", bg:"#F7F7F7", accent:"#212121", text:"#212121", sub:"#757575", bar:"#EEEEEE", font:"sans",    layout:"classic",  stripe:"#212121"},
+  {id:11, name:"Navy Stripe",    cat:"Corporate", bg:"#FFFFFF", accent:"#003087", text:"#1A1A1A", sub:"#6685AA", bar:"#E8EFF8", font:"serif",   layout:"sidebar",  stripe:"#003087"},
+  {id:12, name:"Manhattan",      cat:"Corporate", bg:"#1C1C2E", accent:"#E8D5A3", text:"#F5F0E8", sub:"#9A8F7A", bar:"#252535", font:"serif",   layout:"classic",  stripe:"#E8D5A3"},
+  {id:13, name:"Deloitte",       cat:"Corporate", bg:"#FFFFFF", accent:"#86BC25", text:"#1A1A1A", sub:"#6B8830", bar:"#F0F7E0", font:"sans",    layout:"minimal",  stripe:"#86BC25"},
+  {id:14, name:"Accenture",      cat:"Corporate", bg:"#FFFFFF", accent:"#A100FF", text:"#1A1A1A", sub:"#8855CC", bar:"#F5EAFF", font:"sans",    layout:"sidebar",  stripe:"#A100FF"},
+  {id:15, name:"BCG",            cat:"Corporate", bg:"#FAFAFA", accent:"#006633", text:"#1A1A1A", sub:"#558866", bar:"#E8F5EE", font:"sans",    layout:"classic",  stripe:"#006633"},
+  {id:16, name:"Ivory Classic",  cat:"Corporate", bg:"#FDFCF8", accent:"#4A3728", text:"#2A1A0E", sub:"#8A7060", bar:"#F5F0E8", font:"serif",   layout:"minimal",  stripe:"#4A3728"},
+  {id:17, name:"KPMG Blue",      cat:"Corporate", bg:"#FFFFFF", accent:"#00338D", text:"#1A1A1A", sub:"#5577AA", bar:"#E0E8F5", font:"sans",    layout:"classic",  stripe:"#00338D"},
+  {id:18, name:"EY Yellow",      cat:"Corporate", bg:"#FFFFFF", accent:"#FFE600", text:"#1A1A1A", sub:"#887700", bar:"#FFFAE0", font:"sans",    layout:"sidebar",  stripe:"#333300"},
+  {id:19, name:"PwC Red",        cat:"Corporate", bg:"#FFFFFF", accent:"#D04A02", text:"#1A1A1A", sub:"#AA6644", bar:"#FFEEE6", font:"sans",    layout:"minimal",  stripe:"#D04A02"},
+
+  // ── TECH & ENGINEERING (20) ──
+  {id:20, name:"Terminal",       cat:"Tech",      bg:"#0D1117", accent:"#00FF41", text:"#E6EDF3", sub:"#7D8590", bar:"#161B22", font:"mono",    layout:"minimal",  stripe:"#00FF41"},
+  {id:21, name:"GitHub Dark",    cat:"Tech",      bg:"#0D1117", accent:"#58A6FF", text:"#C9D1D9", sub:"#8B949E", bar:"#161B22", font:"mono",    layout:"classic",  stripe:"#58A6FF"},
+  {id:22, name:"VS Code",        cat:"Tech",      bg:"#1E1E1E", accent:"#569CD6", text:"#D4D4D4", sub:"#858585", bar:"#252526", font:"mono",    layout:"sidebar",  stripe:"#569CD6"},
+  {id:23, name:"Google",         cat:"Tech",      bg:"#FFFFFF", accent:"#4285F4", text:"#202124", sub:"#5F6368", bar:"#F8F9FA", font:"sans",    layout:"minimal",  stripe:"#4285F4"},
+  {id:24, name:"AWS Orange",     cat:"Tech",      bg:"#FFFFFF", accent:"#FF9900", text:"#232F3E", sub:"#8C8C8C", bar:"#FFF8EE", font:"sans",    layout:"classic",  stripe:"#FF9900"},
+  {id:25, name:"Azure Blue",     cat:"Tech",      bg:"#F0F6FF", accent:"#0078D4", text:"#252525", sub:"#5A7FA0", bar:"#DEECF9", font:"sans",    layout:"sidebar",  stripe:"#0078D4"},
+  {id:26, name:"Vercel",         cat:"Tech",      bg:"#000000", accent:"#FFFFFF", text:"#FFFFFF", sub:"#888888", bar:"#111111", font:"sans",    layout:"minimal",  stripe:"#FFFFFF"},
+  {id:27, name:"Stripe",         cat:"Tech",      bg:"#FFFFFF", accent:"#635BFF", text:"#1A1A2E", sub:"#6B6B88", bar:"#F0EEFF", font:"sans",    layout:"classic",  stripe:"#635BFF"},
+  {id:28, name:"Cyber Teal",     cat:"Tech",      bg:"#001219", accent:"#0AD3FF", text:"#E0F7FF", sub:"#4499BB", bar:"#001D26", font:"mono",    layout:"sidebar",  stripe:"#0AD3FF"},
+  {id:29, name:"Neon Purple",    cat:"Tech",      bg:"#0A0010", accent:"#CC00FF", text:"#F0E0FF", sub:"#8844AA", bar:"#150020", font:"mono",    layout:"minimal",  stripe:"#CC00FF"},
+  {id:30, name:"Stack Dark",     cat:"Tech",      bg:"#1B1B1F", accent:"#F97316", text:"#EFEFEF", sub:"#999999", bar:"#252529", font:"mono",    layout:"classic",  stripe:"#F97316"},
+  {id:31, name:"Electric Blue",  cat:"Tech",      bg:"#020B18", accent:"#00D4FF", text:"#DDEFFF", sub:"#3366AA", bar:"#061428", font:"mono",    layout:"sidebar",  stripe:"#00D4FF"},
+  {id:32, name:"Silicon Valley", cat:"Tech",      bg:"#FAFAFA", accent:"#2563EB", text:"#111827", sub:"#6B7280", bar:"#EFF6FF", font:"sans",    layout:"minimal",  stripe:"#2563EB"},
+  {id:33, name:"GitHub Light",   cat:"Tech",      bg:"#FFFFFF", accent:"#1F883D", text:"#1F2328", sub:"#656D76", bar:"#F6F8FA", font:"mono",    layout:"classic",  stripe:"#1F883D"},
+  {id:34, name:"Dev Purple",     cat:"Tech",      bg:"#13111C", accent:"#9D4EDD", text:"#EEE8FF", sub:"#7755AA", bar:"#1C1728", font:"mono",    layout:"sidebar",  stripe:"#9D4EDD"},
+  {id:35, name:"Matrix Green",   cat:"Tech",      bg:"#001100", accent:"#33FF33", text:"#CCFFCC", sub:"#22AA22", bar:"#002200", font:"mono",    layout:"minimal",  stripe:"#33FF33"},
+  {id:36, name:"Cloudflare",     cat:"Tech",      bg:"#FFFFFF", accent:"#F48120", text:"#1A1A1A", sub:"#888888", bar:"#FFF4EB", font:"sans",    layout:"classic",  stripe:"#F48120"},
+  {id:37, name:"DataSci",        cat:"Tech",      bg:"#F8FAFF", accent:"#306998", text:"#1A2030", sub:"#4A6080", bar:"#E8F0FF", font:"sans",    layout:"sidebar",  stripe:"#306998"},
+  {id:38, name:"ML Engineer",    cat:"Tech",      bg:"#F0FFF4", accent:"#276749", text:"#1A2E1A", sub:"#4A8060", bar:"#C6F6D5", font:"sans",    layout:"minimal",  stripe:"#276749"},
+  {id:39, name:"Cyber Dark",     cat:"Tech",      bg:"#080C14", accent:"#FF003C", text:"#FFCCCC", sub:"#AA3344", bar:"#100814", font:"mono",    layout:"sidebar",  stripe:"#FF003C"},
+
+  // ── CREATIVE & DESIGN (15) ──
+  {id:40, name:"Bauhaus",        cat:"Creative",  bg:"#FFFEF0", accent:"#E63946", text:"#1D1D1D", sub:"#7A7A6A", bar:"#FFF5CC", font:"sans",    layout:"sidebar",  stripe:"#E63946"},
+  {id:41, name:"Ink & Paper",    cat:"Creative",  bg:"#FDF8F0", accent:"#2D2D2D", text:"#1A1A1A", sub:"#888880", bar:"#F5EFE0", font:"serif",   layout:"minimal",  stripe:"#2D2D2D"},
+  {id:42, name:"Duotone Pink",   cat:"Creative",  bg:"#FFF0F5", accent:"#E91E8C", text:"#2A0A1A", sub:"#CC66AA", bar:"#FFD6EB", font:"sans",    layout:"sidebar",  stripe:"#E91E8C"},
+  {id:43, name:"Typeset",        cat:"Creative",  bg:"#F5F0E8", accent:"#8B4513", text:"#2A1A0A", sub:"#A07850", bar:"#EAE0D0", font:"serif",   layout:"classic",  stripe:"#8B4513"},
+  {id:44, name:"Mondrian",       cat:"Creative",  bg:"#FFFFFF", accent:"#FF0000", text:"#000000", sub:"#444444", bar:"#FFFFAA", font:"sans",    layout:"sidebar",  stripe:"#0000FF"},
+  {id:45, name:"Studio",         cat:"Creative",  bg:"#1A1A1A", accent:"#E8C547", text:"#F5F5F5", sub:"#999999", bar:"#252525", font:"sans",    layout:"minimal",  stripe:"#E8C547"},
+  {id:46, name:"Portfolio",      cat:"Creative",  bg:"#F8F5FF", accent:"#7B2FBE", text:"#1A0A2E", sub:"#9966BB", bar:"#EEE0FF", font:"serif",   layout:"sidebar",  stripe:"#7B2FBE"},
+  {id:47, name:"Risograph",      cat:"Creative",  bg:"#FFF9F0", accent:"#FF6B35", text:"#1A1A1A", sub:"#AA7755", bar:"#FFE8D6", font:"sans",    layout:"classic",  stripe:"#FF6B35"},
+  {id:48, name:"Editorial",      cat:"Creative",  bg:"#FFFFFF", accent:"#000000", text:"#000000", sub:"#666666", bar:"#F5F5F5", font:"serif",   layout:"classic",  stripe:"#000000"},
+  {id:49, name:"Neon Sign",      cat:"Creative",  bg:"#050510", accent:"#FF4FFF", text:"#FFE8FF", sub:"#AA44AA", bar:"#0A0820", font:"mono",    layout:"minimal",  stripe:"#FF4FFF"},
+  {id:50, name:"Art Deco",       cat:"Creative",  bg:"#0A0800", accent:"#D4AF37", text:"#F5EBC8", sub:"#9A8050", bar:"#151000", font:"serif",   layout:"sidebar",  stripe:"#D4AF37"},
+  {id:51, name:"Swiss",          cat:"Creative",  bg:"#FFFFFF", accent:"#FF0000", text:"#000000", sub:"#666666", bar:"#F0F0F0", font:"sans",    layout:"minimal",  stripe:"#FF0000"},
+  {id:52, name:"Pastel Dream",   cat:"Creative",  bg:"#FFF5FF", accent:"#E879F9", text:"#4A1A4A", sub:"#BB88CC", bar:"#FCE7FF", font:"sans",    layout:"sidebar",  stripe:"#E879F9"},
+  {id:53, name:"Geometric",      cat:"Creative",  bg:"#F5F5FF", accent:"#3730A3", text:"#1A1860", sub:"#7070B0", bar:"#E0E0F8", font:"sans",    layout:"classic",  stripe:"#3730A3"},
+  {id:54, name:"Retro Wave",     cat:"Creative",  bg:"#0D0025", accent:"#FF71CE", text:"#F8E8FF", sub:"#BB55AA", bar:"#180040", font:"mono",    layout:"minimal",  stripe:"#01CDFE"},
+
+  // ── HEALTHCARE & SCIENCE (10) ──
+  {id:55, name:"Medical White",  cat:"Medical",   bg:"#FFFFFF", accent:"#006E9C", text:"#1A3040", sub:"#5588AA", bar:"#E8F4FA", font:"sans",    layout:"classic",  stripe:"#006E9C"},
+  {id:56, name:"Clinical",       cat:"Medical",   bg:"#F8FFFF", accent:"#00838F", text:"#1A3035", sub:"#4A8088", bar:"#E0F5F7", font:"sans",    layout:"minimal",  stripe:"#00838F"},
+  {id:57, name:"Nurse",          cat:"Medical",   bg:"#FFF5F5", accent:"#C62828", text:"#2A0A0A", sub:"#AA5555", bar:"#FFE0E0", font:"sans",    layout:"sidebar",  stripe:"#C62828"},
+  {id:58, name:"Research",       cat:"Medical",   bg:"#F5F8FF", accent:"#283593", text:"#1A1A40", sub:"#5560AA", bar:"#E0E5FF", font:"serif",   layout:"classic",  stripe:"#283593"},
+  {id:59, name:"Pharma",         cat:"Medical",   bg:"#F0FFF8", accent:"#00695C", text:"#1A2E25", sub:"#44887A", bar:"#C8F0E4", font:"sans",    layout:"minimal",  stripe:"#00695C"},
+  {id:60, name:"Dental",         cat:"Medical",   bg:"#F8FAFF", accent:"#0277BD", text:"#1A2A3A", sub:"#4477AA", bar:"#DDEEFF", font:"sans",    layout:"sidebar",  stripe:"#0277BD"},
+  {id:61, name:"Lab Coat",       cat:"Medical",   bg:"#FFFFFF", accent:"#1565C0", text:"#1A1A1A", sub:"#5577AA", bar:"#E3F0FF", font:"sans",    layout:"classic",  stripe:"#1565C0"},
+  {id:62, name:"Biology",        cat:"Medical",   bg:"#F0FFF0", accent:"#2E7D32", text:"#1A2A1A", sub:"#5A8858", bar:"#C8F5CA", font:"sans",    layout:"minimal",  stripe:"#2E7D32"},
+  {id:63, name:"Psychiatry",     cat:"Medical",   bg:"#FFF8FF", accent:"#6A1B9A", text:"#2A0A3A", sub:"#AA66CC", bar:"#F3E5FF", font:"serif",   layout:"sidebar",  stripe:"#6A1B9A"},
+  {id:64, name:"Data Health",    cat:"Medical",   bg:"#F5FFFD", accent:"#00766C", text:"#1A2A28", sub:"#4A8880", bar:"#C8F8F2", font:"sans",    layout:"classic",  stripe:"#00766C"},
+
+  // ── ACADEMIC & RESEARCH (10) ──
+  {id:65, name:"Oxford",         cat:"Academic",  bg:"#FAFAF5", accent:"#002147", text:"#1A1A1A", sub:"#6B7A8A", bar:"#EFF3FA", font:"serif",   layout:"classic",  stripe:"#002147"},
+  {id:66, name:"Harvard",        cat:"Academic",  bg:"#FFFFFF", accent:"#A41034", text:"#1A1A1A", sub:"#997788", bar:"#FFF0F3", font:"serif",   layout:"minimal",  stripe:"#A41034"},
+  {id:67, name:"MIT",            cat:"Academic",  bg:"#F5F5F5", accent:"#A31F34", text:"#1A1A1A", sub:"#997788", bar:"#FFE8EA", font:"sans",    layout:"sidebar",  stripe:"#A31F34"},
+  {id:68, name:"PhD Candidate",  cat:"Academic",  bg:"#FFFDF8", accent:"#4A3728", text:"#1A1208", sub:"#8A7060", bar:"#F5EFE0", font:"serif",   layout:"classic",  stripe:"#4A3728"},
+  {id:69, name:"Professor",      cat:"Academic",  bg:"#F8F5F0", accent:"#1B3A4B", text:"#1A1A1A", sub:"#6B8090", bar:"#E0EBF0", font:"serif",   layout:"minimal",  stripe:"#1B3A4B"},
+  {id:70, name:"Research Fellow",cat:"Academic",  bg:"#FFFFFF", accent:"#5B0888", text:"#1A1A1A", sub:"#9966BB", bar:"#F5EAFF", font:"serif",   layout:"sidebar",  stripe:"#5B0888"},
+  {id:71, name:"Journal",        cat:"Academic",  bg:"#F5F5EE", accent:"#8B4513", text:"#2A1A0A", sub:"#AA7755", bar:"#EDE0CE", font:"serif",   layout:"classic",  stripe:"#8B4513"},
+  {id:72, name:"Cambridge",      cat:"Academic",  bg:"#F5F8FA", accent:"#003977", text:"#1A1A1A", sub:"#5577AA", bar:"#D6E8F5", font:"serif",   layout:"minimal",  stripe:"#003977"},
+  {id:73, name:"Thesis",         cat:"Academic",  bg:"#FDFCF9", accent:"#2D4739", text:"#1A1A1A", sub:"#5A7060", bar:"#E5EFE6", font:"serif",   layout:"sidebar",  stripe:"#2D4739"},
+  {id:74, name:"Academia",       cat:"Academic",  bg:"#FFFFFF", accent:"#B5451B", text:"#1A1A1A", sub:"#AA6655", bar:"#FFF0EA", font:"serif",   layout:"classic",  stripe:"#B5451B"},
+
+  // ── MODERN & MINIMALIST (15) ──
+  {id:75, name:"Pure White",     cat:"Modern",    bg:"#FFFFFF", accent:"#111111", text:"#111111", sub:"#999999", bar:"#F5F5F5", font:"sans",    layout:"minimal",  stripe:"#111111"},
+  {id:76, name:"Mono",           cat:"Modern",    bg:"#FAFAFA", accent:"#333333", text:"#1A1A1A", sub:"#888888", bar:"#EEEEEE", font:"sans",    layout:"classic",  stripe:"#333333"},
+  {id:77, name:"Nordic",         cat:"Modern",    bg:"#F8F9FA", accent:"#2C3E50", text:"#2C3E50", sub:"#7F8C8D", bar:"#ECF0F1", font:"sans",    layout:"minimal",  stripe:"#2C3E50"},
+  {id:78, name:"Zen",            cat:"Modern",    bg:"#FDFCFB", accent:"#6B6B6B", text:"#2A2A2A", sub:"#AAAAAA", bar:"#F2F1F0", font:"serif",   layout:"minimal",  stripe:"#6B6B6B"},
+  {id:79, name:"Slate Clean",    cat:"Modern",    bg:"#F8FAFC", accent:"#475569", text:"#0F172A", sub:"#64748B", bar:"#E2E8F0", font:"sans",    layout:"classic",  stripe:"#475569"},
+  {id:80, name:"Ghost",          cat:"Modern",    bg:"#FFFFFF", accent:"#CCCCCC", text:"#333333", sub:"#AAAAAA", bar:"#F8F8F8", font:"sans",    layout:"minimal",  stripe:"#888888"},
+  {id:81, name:"Smoke",          cat:"Modern",    bg:"#1A1A1A", accent:"#FFFFFF", text:"#FFFFFF", sub:"#888888", bar:"#252525", font:"sans",    layout:"classic",  stripe:"#FFFFFF"},
+  {id:82, name:"Paper & Ink",    cat:"Modern",    bg:"#FFFFF0", accent:"#1A1A1A", text:"#1A1A1A", sub:"#888880", bar:"#F5F5E0", font:"serif",   layout:"minimal",  stripe:"#1A1A1A"},
+  {id:83, name:"Linen",          cat:"Modern",    bg:"#FAF7F2", accent:"#8B7355", text:"#3B2F1A", sub:"#A09070", bar:"#F2EDE0", font:"serif",   layout:"sidebar",  stripe:"#8B7355"},
+  {id:84, name:"Fog",            cat:"Modern",    bg:"#F2F3F5", accent:"#556B7A", text:"#2A3540", sub:"#8090A0", bar:"#E5E8ED", font:"sans",    layout:"minimal",  stripe:"#556B7A"},
+  {id:85, name:"Carbon Light",   cat:"Modern",    bg:"#FAFAFA", accent:"#1C1C1C", text:"#1C1C1C", sub:"#888888", bar:"#F0F0F0", font:"sans",    layout:"classic",  stripe:"#1C1C1C"},
+  {id:86, name:"Breeze",         cat:"Modern",    bg:"#F0F8FF", accent:"#2D6EA8", text:"#1A2A3A", sub:"#5580A0", bar:"#DCF0FF", font:"sans",    layout:"sidebar",  stripe:"#2D6EA8"},
+  {id:87, name:"Quartz",         cat:"Modern",    bg:"#FDF5FF", accent:"#7C4F9E", text:"#2A1A3A", sub:"#9970BB", bar:"#EFE0FF", font:"sans",    layout:"minimal",  stripe:"#7C4F9E"},
+  {id:88, name:"Frost",          cat:"Modern",    bg:"#EEF6FF", accent:"#1A56DB", text:"#1A2A40", sub:"#4466AA", bar:"#D9EAFF", font:"sans",    layout:"classic",  stripe:"#1A56DB"},
+  {id:89, name:"Clean Coral",    cat:"Modern",    bg:"#FFF5F2", accent:"#E0552A", text:"#2A1A10", sub:"#CC7755", bar:"#FFE5DA", font:"sans",    layout:"sidebar",  stripe:"#E0552A"},
+
+  // ── VIBRANT & BOLD (10) ──
+  {id:90, name:"Sunset",         cat:"Bold",      bg:"#FFF0E0", accent:"#E63E2A", text:"#2A0A00", sub:"#CC6644", bar:"#FFD6BB", font:"sans",    layout:"sidebar",  stripe:"#E63E2A"},
+  {id:91, name:"Neon City",      cat:"Bold",      bg:"#080818", accent:"#FFFC00", text:"#FFFFF0", sub:"#AAAA44", bar:"#101028", font:"mono",    layout:"minimal",  stripe:"#FFFC00"},
+  {id:92, name:"Amethyst",       cat:"Bold",      bg:"#F8F0FF", accent:"#7B2D8B", text:"#2A0A35", sub:"#9960AA", bar:"#EFD5FF", font:"serif",   layout:"classic",  stripe:"#7B2D8B"},
+  {id:93, name:"Cobalt Strike",  cat:"Bold",      bg:"#001033", accent:"#0080FF", text:"#CCE5FF", sub:"#4477BB", bar:"#002055", font:"mono",    layout:"sidebar",  stripe:"#0080FF"},
+  {id:94, name:"Emerald City",   cat:"Bold",      bg:"#001A00", accent:"#00FF88", text:"#CCFFE8", sub:"#44AA77", bar:"#003300", font:"mono",    layout:"minimal",  stripe:"#00FF88"},
+  {id:95, name:"Ruby",           cat:"Bold",      bg:"#FFFFFF", accent:"#CC0033", text:"#1A0005", sub:"#AA4455", bar:"#FFEEF2", font:"serif",   layout:"classic",  stripe:"#CC0033"},
+  {id:96, name:"Topaz",          cat:"Bold",      bg:"#F0FFFF", accent:"#006699", text:"#002233", sub:"#4488AA", bar:"#D0F5FF", font:"sans",    layout:"sidebar",  stripe:"#006699"},
+  {id:97, name:"Volcano",        cat:"Bold",      bg:"#0F0500", accent:"#FF4500", text:"#FFE0CC", sub:"#AA5533", bar:"#1A0800", font:"mono",    layout:"minimal",  stripe:"#FF4500"},
+  {id:98, name:"Ultraviolet",    cat:"Bold",      bg:"#0A0020", accent:"#8000FF", text:"#EED5FF", sub:"#7733BB", bar:"#100030", font:"mono",    layout:"sidebar",  stripe:"#8000FF"},
+  {id:99, name:"Jade",           cat:"Bold",      bg:"#F0FFF8", accent:"#00A86B", text:"#003320", sub:"#44AA80", bar:"#C0FFE0", font:"sans",    layout:"classic",  stripe:"#00A86B"},
+
+  // ── INTERNATIONAL & ELEGANT (10) ──
+  {id:100,name:"Parisian",       cat:"Elegant",   bg:"#FDFAF5", accent:"#8B6914", text:"#2A1A00", sub:"#AA8844", bar:"#F5EDD5", font:"serif",   layout:"sidebar",  stripe:"#8B6914"},
+  {id:101,name:"Milanese",       cat:"Elegant",   bg:"#FFFFFF", accent:"#1A1A1A", text:"#1A1A1A", sub:"#888888", bar:"#F5F5F5", font:"serif",   layout:"classic",  stripe:"#C8A96E"},
+  {id:102,name:"Tokyo",          cat:"Elegant",   bg:"#F8F0F0", accent:"#C0392B", text:"#2A1A1A", sub:"#AA6666", bar:"#FFE5E5", font:"sans",    layout:"minimal",  stripe:"#C0392B"},
+  {id:103,name:"Berlin",         cat:"Elegant",   bg:"#1A1A1A", accent:"#DDDDDD", text:"#EEEEEE", sub:"#888888", bar:"#252525", font:"sans",    layout:"sidebar",  stripe:"#DDDDDD"},
+  {id:104,name:"Dubai Gold",     cat:"Elegant",   bg:"#0A0800", accent:"#D4AF37", text:"#F5E8C0", sub:"#AA9050", bar:"#151000", font:"serif",   layout:"classic",  stripe:"#D4AF37"},
+  {id:105,name:"London Fog",     cat:"Elegant",   bg:"#F0EEE8", accent:"#2D3B45", text:"#1A2228", sub:"#6A7880", bar:"#E0DEDC", font:"serif",   layout:"minimal",  stripe:"#2D3B45"},
+  {id:106,name:"Venetian",       cat:"Elegant",   bg:"#FFF8F0", accent:"#8B1A1A", text:"#2A1008", sub:"#AA6644", bar:"#F8E8D8", font:"serif",   layout:"sidebar",  stripe:"#8B1A1A"},
+  {id:107,name:"Nordic Noir",    cat:"Elegant",   bg:"#0E1015", accent:"#F5F5F5", text:"#EEEEEE", sub:"#888888", bar:"#181A20", font:"sans",    layout:"classic",  stripe:"#AAAAAA"},
+  {id:108,name:"Kyoto",          cat:"Elegant",   bg:"#FFF8F5", accent:"#C4703A", text:"#2A1408", sub:"#AA7755", bar:"#FFE8D5", font:"serif",   layout:"minimal",  stripe:"#C4703A"},
+  {id:109,name:"Geneva",         cat:"Elegant",   bg:"#FFFFFF", accent:"#CC0000", text:"#1A1A1A", sub:"#AA4444", bar:"#FFF0F0", font:"sans",    layout:"sidebar",  stripe:"#CC0000"},
+];
+
+const CATEGORIES = ["All", ...new Set(PRESETS.map(p => p.cat))];
+let selectedPreset = 1;
+let currentCat = "All";
+let skills=[], langs=[], certs=[];
+let expItems=[], eduItems=[];
+
+// ─── INIT DATA ───────────────────────────────────────────────────────────────
+expItems=[
+  {role:"Senior UX Designer",company:"Google",dates:"2022 – Present",desc:"Led end-to-end design for core Search features serving 4B+ daily users. Managed a team of 6 designers across 3 product areas."},
+  {role:"Product Designer",company:"Figma",dates:"2020 – 2022",desc:"Redesigned onboarding flow increasing activation by 34%. Ran 60+ user interviews to drive roadmap decisions."}
+];
+eduItems=[{degree:"BA Interaction Design",school:"Central Saint Martins",dates:"2016 – 2020"}];
+skills=["Figma","User Research","Prototyping","Design Systems","HTML/CSS","Notion"];
+certs=["Google UX Certificate","AWS Cloud Practitioner"];
+langs=["English (Native)","Spanish (B2)","French (A2)"];
+
+// ─── CATEGORY TABS ───────────────────────────────────────────────────────────
+function buildCategoryTabs(){
+  const wrap = document.getElementById('categoryTabs');
+  wrap.innerHTML = CATEGORIES.map(cat => `
+    <button class="cat-tab${cat===currentCat?' active':''}" onclick="selectCat('${cat}')">${cat}</button>
+  `).join('');
+}
+
+function selectCat(cat){
+  currentCat = cat;
+  buildCategoryTabs();
+  buildPresetsGrid();
+}
+
+// ─── PRESETS GRID ────────────────────────────────────────────────────────────
+function buildPresetsGrid(){
+  const filtered = currentCat === "All" ? PRESETS : PRESETS.filter(p => p.cat === currentCat);
+  const grid = document.getElementById('presetsGrid');
+  grid.innerHTML = filtered.map(p => `
+    <div class="preset-thumb${p.id===selectedPreset?' active':''}" onclick="selectPreset(${p.id})">
+      <div class="thumb-preview" style="background:${p.bg}">
+        ${buildMiniPreview(p)}
+      </div>
+      <div class="thumb-footer">
+        <div class="thumb-name">${p.name}</div>
+        <div class="thumb-cat">${p.cat}</div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('totalCount').textContent = `${PRESETS.length} templates`;
+}
+
+function buildMiniPreview(p){
+  const isDark = isColorDark(p.bg);
+  const textAlpha = isDark ? '0.7' : '0.4';
+  return `
+    <div style="position:absolute;left:0;right:0;top:0;height:28px;background:${p.accent}"></div>
+    <div style="position:absolute;top:8px;left:8px;right:8px;height:12px;background:rgba(255,255,255,0.9);border-radius:2px"></div>
+    <div style="position:absolute;top:34px;left:8px;width:55%;height:2px;background:${p.text};opacity:${textAlpha};border-radius:1px"></div>
+    <div style="position:absolute;top:40px;left:8px;width:75%;height:1.5px;background:${p.text};opacity:0.2;border-radius:1px"></div>
+    <div style="position:absolute;top:46px;left:8px;width:60%;height:1.5px;background:${p.text};opacity:0.15;border-radius:1px"></div>
+    <div style="position:absolute;top:56px;left:8px;width:40%;height:1.5px;background:${p.accent};opacity:0.6;border-radius:1px"></div>
+    <div style="position:absolute;top:62px;left:8px;width:70%;height:1.5px;background:${p.text};opacity:0.15;border-radius:1px"></div>
+    <div style="position:absolute;top:68px;left:8px;width:50%;height:1.5px;background:${p.text};opacity:0.12;border-radius:1px"></div>
+  `;
+}
+
+function isColorDark(hex){
+  const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+  return (r*299+g*587+b*114)/1000 < 128;
+}
+
+function selectPreset(id){
+  selectedPreset = id;
+  buildPresetsGrid();
+  render();
+  document.getElementById('presetLabel').textContent = PRESETS.find(p=>p.id===id)?.name || '';
+}
+
+// ─── FORM MANAGEMENT ─────────────────────────────────────────────────────────
+function getData(){
+  return {
+    name: document.getElementById('f_name').value || 'Alex Johnson',
+    title: document.getElementById('f_title').value || 'Senior Product Designer',
+    email: document.getElementById('f_email').value || 'alex@email.com',
+    phone: document.getElementById('f_phone').value || '+1 555 000 0000',
+    loc: document.getElementById('f_loc').value || 'London, UK',
+    link: document.getElementById('f_link').value || 'linkedin.com/in/alexj',
+    summary: document.getElementById('f_summary').value || 'Creative and detail-oriented designer with 7+ years of experience building user-centric digital products. Passionate about design systems and data-driven UX.',
+    exp: expItems, edu: eduItems, skills, certs, langs
+  };
+}
+
+function addExp(){ expItems.push({role:'',company:'',dates:'',desc:''}); renderExpList(); render(); }
+function addEdu(){ eduItems.push({degree:'',school:'',dates:''}); renderEduList(); render(); }
+function removeExp(i){ expItems.splice(i,1); renderExpList(); render(); }
+function removeEdu(i){ eduItems.splice(i,1); renderEduList(); render(); }
+
+function renderExpList(){
+  document.getElementById('expList').innerHTML = expItems.map((e,i) => `
+    <div class="entry-card">
+      <button class="rm" onclick="removeExp(${i})">×</button>
+      <div class="row2">
+        <div class="field"><label>Job Title</label><input value="${esc(e.role)}" oninput="expItems[${i}].role=this.value;render()" placeholder="Software Engineer"></div>
+        <div class="field"><label>Company</label><input value="${esc(e.company)}" oninput="expItems[${i}].company=this.value;render()" placeholder="Acme Corp"></div>
+      </div>
+      <div class="field"><label>Dates</label><input value="${esc(e.dates)}" oninput="expItems[${i}].dates=this.value;render()" placeholder="Jan 2022 – Present"></div>
+      <div class="field"><label>Description</label><textarea oninput="expItems[${i}].desc=this.value;render()" placeholder="Key achievements...">${esc(e.desc)}</textarea></div>
+    </div>`).join('');
+}
+
+function renderEduList(){
+  document.getElementById('eduList').innerHTML = eduItems.map((e,i) => `
+    <div class="entry-card">
+      <button class="rm" onclick="removeEdu(${i})">×</button>
+      <div class="field"><label>Degree / Qualification</label><input value="${esc(e.degree)}" oninput="eduItems[${i}].degree=this.value;render()" placeholder="BSc Computer Science"></div>
+      <div class="row2">
+        <div class="field"><label>School</label><input value="${esc(e.school)}" oninput="eduItems[${i}].school=this.value;render()" placeholder="MIT"></div>
+        <div class="field"><label>Dates</label><input value="${esc(e.dates)}" oninput="eduItems[${i}].dates=this.value;render()" placeholder="2018 – 2022"></div>
+      </div>
+    </div>`).join('');
+}
+
+function addSkill(){ const v=document.getElementById('skillIn').value.trim(); if(!v)return; skills.push(v); document.getElementById('skillIn').value=''; renderTags(); render(); }
+function addCert(){ const v=document.getElementById('certIn').value.trim(); if(!v)return; certs.push(v); document.getElementById('certIn').value=''; renderTags(); render(); }
+function addLang(){ const v=document.getElementById('langIn').value.trim(); if(!v)return; langs.push(v); document.getElementById('langIn').value=''; renderTags(); render(); }
+function removeSkill(i){ skills.splice(i,1); renderTags(); render(); }
+function removeCert(i){ certs.splice(i,1); renderTags(); render(); }
+function removeLang(i){ langs.splice(i,1); renderTags(); render(); }
+
+function renderTags(){
+  document.getElementById('skillTags').innerHTML = skills.map((s,i)=>`<span class="tag">${s}<button onclick="removeSkill(${i})">×</button></span>`).join('');
+  document.getElementById('certTags').innerHTML = certs.map((c,i)=>`<span class="tag">${c}<button onclick="removeCert(${i})">×</button></span>`).join('');
+  document.getElementById('langTags').innerHTML = langs.map((l,i)=>`<span class="tag">${l}<button onclick="removeLang(${i})">×</button></span>`).join('');
+}
+
+function clearForm(){
+  ['f_name','f_title','f_email','f_phone','f_loc','f_link','f_summary'].forEach(id=>document.getElementById(id).value='');
+  expItems=[]; eduItems=[]; skills=[]; certs=[]; langs=[];
+  renderExpList(); renderEduList(); renderTags(); render();
+}
+
+function esc(s){ return (s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ─── CANVAS RENDERER ──────────────────────────────────────────────────────────
+const W=794, H=1123;
+
+function render(){
+  const canvas = document.getElementById('resumeCanvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  const p = PRESETS.find(pr=>pr.id===selectedPreset) || PRESETS[1];
+  const d = getData();
+  ctx.clearRect(0,0,W,H);
+
+  if(p.layout==='sidebar') drawSidebar(ctx,p,d);
+  else if(p.layout==='minimal') drawMinimal(ctx,p,d);
+  else drawClassic(ctx,p,d);
+}
+
+function getFont(p, size, weight='normal'){
+  const fam = p.font==='serif' ? 'Georgia,serif' : p.font==='mono' ? '"Courier New",monospace' : '"Segoe UI",system-ui,sans-serif';
+  return `${weight} ${size}px ${fam}`;
+}
+
+function setF(ctx,p,size,weight='normal'){ ctx.font=getFont(p,size,weight); }
+
+function wrapText(ctx,text,x,y,maxW,lineH){
+  if(!text)return y;
+  const words=text.split(' '); let line='';
+  for(let i=0;i<words.length;i++){
+    const test=line+words[i]+' ';
+    if(ctx.measureText(test).width>maxW&&i>0){ ctx.fillText(line.trim(),x,y); y+=lineH; line=words[i]+' '; }
+    else line=test;
+  }
+  if(line.trim()) ctx.fillText(line.trim(),x,y);
+  return y+lineH;
+}
+
+function sectionHead(ctx,p,label,x,y,w){
+  setF(ctx,p,9,'bold'); ctx.fillStyle=p.accent;
+  ctx.fillText(label.toUpperCase(),x,y); y+=5;
+  ctx.fillStyle=p.accent; ctx.fillRect(x,y,w,1.5); y+=10;
+  return y;
+}
+
+function drawClassic(ctx,p,d){
+  ctx.fillStyle=p.bg; ctx.fillRect(0,0,W,H);
+  // Header band
+  ctx.fillStyle=p.accent; ctx.fillRect(0,0,W,130);
+  // Stripe
+  ctx.fillStyle=p.stripe||p.accent; ctx.fillRect(0,128,W,4);
+  // Name
+  setF(ctx,p,30,'bold'); ctx.fillStyle='#FFFFFF';
+  const isDarkBg = isColorDark(p.accent);
+  ctx.fillStyle = isDarkBg ? '#FFFFFF' : '#FFFFFF';
+  ctx.fillText(d.name,44,56);
+  // Title
+  setF(ctx,p,14); ctx.fillStyle='rgba(255,255,255,0.85)';
+  ctx.fillText(d.title,44,78);
+  // Contact
+  setF(ctx,p,10); ctx.fillStyle='rgba(255,255,255,0.7)';
+  const contact=`${d.email}   •   ${d.phone}   •   ${d.loc}   •   ${d.link}`;
+  ctx.fillText(contact,44,102);
+
+  let y=156;
+  const PAD=44, RW=W-88;
+
+  if(d.summary){
+    y = sectionHead(ctx,p,'Summary',PAD,y,RW);
+    ctx.fillStyle=p.text; setF(ctx,p,11.5);
+    y = wrapText(ctx,d.summary,PAD,y,RW,17)+14;
+  }
+
+  if(d.exp.length){
+    y = sectionHead(ctx,p,'Experience',PAD,y,RW);
+    d.exp.forEach(e=>{
+      if(y>H-60) return;
+      setF(ctx,p,13,'bold'); ctx.fillStyle=p.text; ctx.fillText(e.role||'Role',PAD,y);
+      setF(ctx,p,10); ctx.fillStyle=p.sub; const dw=ctx.measureText(e.dates||'').width; ctx.fillText(e.dates||'',W-PAD-dw,y); y+=15;
+      setF(ctx,p,11,'bold'); ctx.fillStyle=p.accent; ctx.fillText(e.company||'Company',PAD,y); y+=15;
+      ctx.fillStyle=p.text; setF(ctx,p,11);
+      y = wrapText(ctx,e.desc||'',PAD,y,RW,15)+10;
+    });
+  }
+
+  if(d.edu.length){
+    y = sectionHead(ctx,p,'Education',PAD,y,RW);
+    d.edu.forEach(e=>{
+      if(y>H-40) return;
+      setF(ctx,p,13,'bold'); ctx.fillStyle=p.text; ctx.fillText(e.degree||'',PAD,y);
+      setF(ctx,p,10); ctx.fillStyle=p.sub; const dw=ctx.measureText(e.dates||'').width; ctx.fillText(e.dates||'',W-PAD-dw,y); y+=15;
+      setF(ctx,p,11); ctx.fillStyle=p.accent; ctx.fillText(e.school||'',PAD,y); y+=22;
+    });
+  }
+
+  if(d.skills.length || d.certs.length || d.langs.length){
+    y = sectionHead(ctx,p,'Skills & Languages',PAD,y,RW);
+    if(d.skills.length){
+      ctx.fillStyle=p.text; setF(ctx,p,11);
+      y = wrapText(ctx,d.skills.join('  ·  '),PAD,y,RW,16)+4;
+    }
+    if(d.certs.length){
+      ctx.fillStyle=p.sub; setF(ctx,p,10);
+      y = wrapText(ctx,d.certs.join('  ·  '),PAD,y,RW,15)+4;
+    }
+    if(d.langs.length){
+      ctx.fillStyle=p.sub; setF(ctx,p,10);
+      y = wrapText(ctx,d.langs.join('  ·  '),PAD,y,RW,15);
+    }
+  }
+}
+
+function drawMinimal(ctx,p,d){
+  ctx.fillStyle=p.bg; ctx.fillRect(0,0,W,H);
+  const PAD=48;
+  // Left accent bar
+  ctx.fillStyle=p.accent; ctx.fillRect(PAD,42,3,70);
+  // Name
+  setF(ctx,p,32,'bold'); ctx.fillStyle=p.text; ctx.fillText(d.name,PAD+14,72);
+  setF(ctx,p,14); ctx.fillStyle=p.sub; ctx.fillText(d.title,PAD+14,92);
+  setF(ctx,p,10); ctx.fillStyle=p.sub;
+  ctx.fillText(`${d.email}  |  ${d.phone}  |  ${d.loc}  |  ${d.link}`,PAD+14,110);
+  // Divider
+  ctx.fillStyle=p.accent; ctx.fillRect(PAD,122,W-PAD*2,1.5);
+
+  let y=146;
+  const RW=W-PAD*2;
+
+  if(d.summary){
+    setF(ctx,p,9,'bold'); ctx.fillStyle=p.sub; ctx.fillText('ABOUT',PAD,y); y+=13;
+    setF(ctx,p,11.5); ctx.fillStyle=p.text;
+    y = wrapText(ctx,d.summary,PAD,y,RW,17)+18;
+  }
+
+  if(d.exp.length){
+    setF(ctx,p,9,'bold'); ctx.fillStyle=p.sub; ctx.fillText('EXPERIENCE',PAD,y); y+=4;
+    ctx.fillStyle=p.bar; ctx.fillRect(PAD,y,RW,0.5); y+=12;
+    d.exp.forEach(e=>{
+      if(y>H-60) return;
+      // dot
+      ctx.fillStyle=p.accent; ctx.beginPath(); ctx.arc(PAD+4,y-4,3.5,0,Math.PI*2); ctx.fill();
+      setF(ctx,p,13,'bold'); ctx.fillStyle=p.text; ctx.fillText(e.role||'',PAD+16,y);
+      setF(ctx,p,10); ctx.fillStyle=p.sub; const dw=ctx.measureText(e.dates||'').width; ctx.fillText(e.dates||'',W-PAD-dw,y); y+=15;
+      setF(ctx,p,11); ctx.fillStyle=p.sub; ctx.fillText(e.company||'',PAD+16,y); y+=14;
+      ctx.fillStyle=p.text; setF(ctx,p,11);
+      y = wrapText(ctx,e.desc||'',PAD+16,y,RW-16,15)+10;
+    });
+    y+=4;
+  }
+
+  if(d.edu.length){
+    setF(ctx,p,9,'bold'); ctx.fillStyle=p.sub; ctx.fillText('EDUCATION',PAD,y); y+=4;
+    ctx.fillStyle=p.bar; ctx.fillRect(PAD,y,RW,0.5); y+=12;
+    d.edu.forEach(e=>{
+      if(y>H-40) return;
+      ctx.fillStyle=p.accent; ctx.beginPath(); ctx.arc(PAD+4,y-4,3.5,0,Math.PI*2); ctx.fill();
+      setF(ctx,p,13,'bold'); ctx.fillStyle=p.text; ctx.fillText(e.degree||'',PAD+16,y);
+      setF(ctx,p,10); ctx.fillStyle=p.sub; const dw=ctx.measureText(e.dates||'').width; ctx.fillText(e.dates||'',W-PAD-dw,y); y+=15;
+      setF(ctx,p,11); ctx.fillStyle=p.sub; ctx.fillText(e.school||'',PAD+16,y); y+=20;
+    });
+    y+=4;
+  }
+
+  if(d.skills.length){
+    setF(ctx,p,9,'bold'); ctx.fillStyle=p.sub; ctx.fillText('SKILLS',PAD,y); y+=4;
+    ctx.fillStyle=p.bar; ctx.fillRect(PAD,y,RW,0.5); y+=12;
+    let x=PAD;
+    d.skills.forEach(s=>{
+      setF(ctx,p,10.5); const tw=ctx.measureText(s).width+14;
+      if(x+tw>W-PAD){ x=PAD; y+=20; }
+      ctx.fillStyle=p.bar; ctx.beginPath(); ctx.roundRect(x,y-12,tw,17,4); ctx.fill();
+      ctx.strokeStyle=p.accent+'44'; ctx.lineWidth=0.5; ctx.beginPath(); ctx.roundRect(x,y-12,tw,17,4); ctx.stroke();
+      ctx.fillStyle=p.text; ctx.fillText(s,x+7,y);
+      x+=tw+6;
+    });
+    y+=22;
+  }
+
+  if(d.langs.length || d.certs.length){
+    if(d.certs.length){
+      setF(ctx,p,9,'bold'); ctx.fillStyle=p.sub; ctx.fillText('CERTIFICATIONS',PAD,y); y+=12;
+      ctx.fillStyle=p.text; setF(ctx,p,11);
+      y = wrapText(ctx,d.certs.join('  ·  '),PAD,y,RW,15)+6;
+    }
+    if(d.langs.length){
+      setF(ctx,p,9,'bold'); ctx.fillStyle=p.sub; ctx.fillText('LANGUAGES',PAD,y); y+=12;
+      ctx.fillStyle=p.text; setF(ctx,p,11);
+      y = wrapText(ctx,d.langs.join('  ·  '),PAD,y,RW,15);
+    }
+  }
+}
+
+function drawSidebar(ctx,p,d){
+  const SW=210, MX=SW+24, MW=W-SW-44;
+  ctx.fillStyle=p.bg; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle=p.bar; ctx.fillRect(0,0,SW,H);
+  // sidebar accent strip
+  ctx.fillStyle=p.accent; ctx.fillRect(SW-3,0,3,H);
+
+  // Avatar circle
+  ctx.fillStyle=p.accent;
+  ctx.beginPath(); ctx.arc(SW/2,72,44,0,Math.PI*2); ctx.fill();
+  const initials=(d.name.split(' ').map(n=>n[0]||'').join('').slice(0,2)).toUpperCase();
+  setF(ctx,p,22,'bold'); ctx.fillStyle='rgba(255,255,255,0.95)';
+  ctx.textAlign='center'; ctx.fillText(initials,SW/2,80); ctx.textAlign='left';
+
+  // Sidebar name
+  setF(ctx,p,13,'bold'); ctx.fillStyle=p.text;
+  ctx.textAlign='center'; ctx.fillText(d.name,SW/2,130); ctx.textAlign='left';
+  setF(ctx,p,10); ctx.fillStyle=p.accent;
+  ctx.textAlign='center'; ctx.fillText(d.title,SW/2,146); ctx.textAlign='left';
+
+  let sy=168;
+  const sideSection=(label)=>{
+    sy+=6;
+    setF(ctx,p,8,'bold'); ctx.fillStyle=p.accent; ctx.fillText(label,12,sy); sy+=5;
+    ctx.fillStyle=p.accent+'55'; ctx.fillRect(12,sy,SW-24,0.5); sy+=9;
+  };
+
+  sideSection('CONTACT');
+  const contacts=[[d.email],[d.phone],[d.loc],[d.link]];
+  contacts.forEach(([v])=>{
+    ctx.fillStyle=p.text; setF(ctx,p,9.5);
+    sy=wrapText(ctx,v||'',12,sy,SW-24,13)+3;
+  });
+
+  if(d.skills.length){
+    sideSection('SKILLS');
+    d.skills.forEach(s=>{
+      if(sy>H-20) return;
+      ctx.fillStyle=p.accent; ctx.fillRect(12,sy-5,2,10);
+      ctx.fillStyle=p.text; setF(ctx,p,10); ctx.fillText(s,18,sy); sy+=14;
+    });
+  }
+
+  if(d.langs.length){
+    sideSection('LANGUAGES');
+    d.langs.forEach(l=>{
+      if(sy>H-20) return;
+      ctx.fillStyle=p.text; setF(ctx,p,10); ctx.fillText(l,12,sy); sy+=14;
+    });
+  }
+
+  if(d.certs.length){
+    sideSection('CERTIFICATIONS');
+    d.certs.forEach(c=>{
+      if(sy>H-20) return;
+      ctx.fillStyle=p.text; setF(ctx,p,9.5);
+      sy=wrapText(ctx,c,12,sy,SW-24,13)+2;
+    });
+  }
+
+  // Main content
+  let y=42;
+  setF(ctx,p,26,'bold'); ctx.fillStyle=p.text; ctx.fillText(d.name,MX,y); y+=20;
+  setF(ctx,p,13); ctx.fillStyle=p.accent; ctx.fillText(d.title,MX,y); y+=20;
+  ctx.fillStyle=p.accent; ctx.fillRect(MX,y,MW,1.5); y+=14;
+
+  if(d.summary){
+    setF(ctx,p,11); ctx.fillStyle=p.text;
+    y=wrapText(ctx,d.summary,MX,y,MW,16)+14;
+    ctx.fillStyle=p.bar; ctx.fillRect(MX,y,MW,0.5); y+=12;
+  }
+
+  if(d.exp.length){
+    setF(ctx,p,9,'bold'); ctx.fillStyle=p.accent; ctx.fillText('EXPERIENCE',MX,y); y+=5;
+    ctx.fillStyle=p.accent; ctx.fillRect(MX,y,MW,1); y+=12;
+    d.exp.forEach(e=>{
+      if(y>H-60) return;
+      setF(ctx,p,12,'bold'); ctx.fillStyle=p.text; ctx.fillText(e.role||'',MX,y);
+      setF(ctx,p,9); ctx.fillStyle=p.sub; const dw=ctx.measureText(e.dates||'').width; ctx.fillText(e.dates||'',W-22-dw,y); y+=14;
+      setF(ctx,p,10,'bold'); ctx.fillStyle=p.accent; ctx.fillText(e.company||'',MX,y); y+=13;
+      ctx.fillStyle=p.text; setF(ctx,p,10.5);
+      y=wrapText(ctx,e.desc||'',MX,y,MW,14)+8;
+    });
+  }
+
+  if(d.edu.length){
+    setF(ctx,p,9,'bold'); ctx.fillStyle=p.accent; ctx.fillText('EDUCATION',MX,y); y+=5;
+    ctx.fillStyle=p.accent; ctx.fillRect(MX,y,MW,1); y+=12;
+    d.edu.forEach(e=>{
+      if(y>H-40) return;
+      setF(ctx,p,12,'bold'); ctx.fillStyle=p.text; ctx.fillText(e.degree||'',MX,y);
+      setF(ctx,p,9); ctx.fillStyle=p.sub; const dw=ctx.measureText(e.dates||'').width; ctx.fillText(e.dates||'',W-22-dw,y); y+=14;
+      setF(ctx,p,10); ctx.fillStyle=p.sub; ctx.fillText(e.school||'',MX,y); y+=20;
+    });
+  }
+}
+
+// ─── PDF DOWNLOAD ─────────────────────────────────────────────────────────────
+function downloadPDF(){
+  render();
+  const canvas=document.getElementById('resumeCanvas');
+  const {jsPDF}=window.jspdf;
+  const pdf=new jsPDF({orientation:'portrait',unit:'pt',format:'a4'});
+  const img=canvas.toDataURL('image/png',1.0);
+  pdf.addImage(img,'PNG',0,0,595,842);
+  const name=(document.getElementById('f_name').value||'resume').replace(/\s+/g,'_');
+  const preset=PRESETS.find(p=>p.id===selectedPreset)?.name.replace(/\s+/g,'_')||'resume';
+  pdf.save(`${name}_${preset}.pdf`);
+}
+
+// ─── BOOT ─────────────────────────────────────────────────────────────────────
+buildCategoryTabs();
+buildPresetsGrid();
+renderExpList();
+renderEduList();
+renderTags();
+render();
+</script>
+</body>
+</html>
